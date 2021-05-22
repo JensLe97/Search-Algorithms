@@ -11,11 +11,15 @@ public class Node {
 
     private int distanceFromStart;
 
+    // Determines the order of expanded nodes
+    private int timeStamp;
+
     public Node(NodeType nodeType, int x, int y) {
         this.nodeType = nodeType;
         this.x = x;
         this.y = y;
         distanceFromStart = -1;
+        timeStamp = 0;
     }
 
     public NodeType getNodeType() {
@@ -45,9 +49,18 @@ public class Node {
 
     // H-Score h(n): Heuristic Function 
     public double getDistanceToEnd(int endX, int endY) {
+        // Manhatten Distance
         int deltaX = Math.abs(x - endX);
         int deltaY = Math.abs(y - endY);
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        return deltaX + deltaY;
+    }
+
+    public int getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(int timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public void setNodeType(NodeType nodeType) {

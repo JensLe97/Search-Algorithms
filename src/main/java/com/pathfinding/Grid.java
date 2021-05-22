@@ -74,7 +74,7 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getX() <= GuiConsts.CANVAS_WIDTH && e.getY() <= GuiConsts.CANVAS_HEIGHT) {
+        if (e.getX() < GuiConsts.CANVAS_WIDTH && e.getY() < GuiConsts.CANVAS_HEIGHT) {
             int posX = e.getX() / GuiConsts.CELL_SIZE;
             int posY = e.getY() / GuiConsts.CELL_SIZE;
             
@@ -93,17 +93,16 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener {
                     gridNodes[startPosX][startPosY].setNodeType(NodeType.EMPTY);
                     gridNodes[startPosX][startPosY].setDistanceFromStart(-1);
                 }
-                node.setDistanceFromStart(0);
                 startPosX = posX;
                 startPosY = posY;
+                node.setDistanceFromStart(0);
                 node.setNodeType(NodeType.START);
             // Right Mouse Button: End Node
             } else if (SwingUtilities.isRightMouseButton(e)) {
-                // Reset the previous start node first
+                // Reset the previous end node first
                 if (endPosX != -1 && endPosY != -1) {
                     gridNodes[endPosX][endPosY].setNodeType(NodeType.EMPTY);
                 }
-                node.setDistanceFromStart(0);
                 endPosX = posX;
                 endPosY = posY;
                 node.setNodeType(NodeType.END);
@@ -124,7 +123,7 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (e.getX() >= 0 && e.getY() >= 0 && e.getX() <= GuiConsts.CANVAS_WIDTH && e.getY() <= GuiConsts.CANVAS_HEIGHT) {
+        if (e.getX() >= 0 && e.getY() >= 0 && e.getX() < GuiConsts.CANVAS_WIDTH && e.getY() < GuiConsts.CANVAS_HEIGHT) {
             int posX = e.getX() / GuiConsts.CELL_SIZE;
             int posY = e.getY() / GuiConsts.CELL_SIZE;
             
