@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.pathfinding.PathfindingTest" time="0.048" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.pathfinding.PathfindingTest" time="0.072" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="DE"/>
     <property name="sun.boot.library.path" value="C:\Users\Jens\AppData\Local\Programs\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\Jens\AppData\Local\Temp\surefire11536317064233000813\surefirebooter14605624690190729006.jar C:\Users\Jens\AppData\Local\Temp\surefire11536317064233000813 2021-05-17T20-13-07_111-jvmRun1 surefire17061245710196799713tmp surefire_017977254161731513362tmp"/>
+    <property name="sun.java.command" value="C:\Users\Jens\AppData\Local\Temp\surefire13431413978521971470\surefirebooter3749192457395702948.jar C:\Users\Jens\AppData\Local\Temp\surefire13431413978521971470 2021-05-23T18-21-05_251-jvmRun1 surefire5159596470775265576tmp surefire_05356234488380048637tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\Jens\OneDrive\Dokumente\Programming Projects\searchalgo\target\test-classes;c:\Users\Jens\OneDrive\Dokumente\Programming Projects\searchalgo\target\classes;C:\Users\Jens\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Jens\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Jens\AppData\Local\Temp\surefire11536317064233000813\surefirebooter14605624690190729006.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Jens\AppData\Local\Temp\surefire13431413978521971470\surefirebooter3749192457395702948.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.11+9"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="isFinished" classname="com.pathfinding.PathfindingTest" time="0.002"/>
+  <testcase name="isFinished" classname="com.pathfinding.PathfindingTest" time="0.003"/>
 </testsuite>
