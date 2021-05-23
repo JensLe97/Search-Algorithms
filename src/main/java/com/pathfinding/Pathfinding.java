@@ -32,6 +32,7 @@ public class Pathfinding {
     private JFrame frame;
     private JButton startSearch;
     private JButton clearCanvas;
+    private JButton resetCanvas;
     private JComboBox<Algorithm> algorithms;
     private JLabel pathLength;
     private JCheckBox diagonals;
@@ -69,12 +70,21 @@ public class Pathfinding {
                     }
                 });
 
-                // Search Button
+                // Clear Button
                 clearCanvas = new JButton("Clear");
                 clearCanvas.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gridCanvas.emptyGridNodes();    
+                    }
+                });
+
+                // Reset Button
+                resetCanvas = new JButton("Reset");
+                resetCanvas.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gridCanvas.resetGridNodes();    
                     }
                 });
 
@@ -89,6 +99,8 @@ public class Pathfinding {
                 controlPanel.add(startSearch);
                 controlPanel.add(Box.createVerticalStrut(verticalSpace));
                 controlPanel.add(clearCanvas);
+                controlPanel.add(Box.createVerticalStrut(verticalSpace));
+                controlPanel.add(resetCanvas);
                 controlPanel.add(Box.createVerticalStrut(verticalSpace));
                 controlPanel.add(pathLength);
                 controlPanel.add(Box.createVerticalStrut(verticalSpace));

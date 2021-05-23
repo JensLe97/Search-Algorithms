@@ -49,10 +49,12 @@ public class Node {
 
     // H-Score h(n): Heuristic Function 
     public double getDistanceToEnd(int endX, int endY) {
-        // Manhatten Distance
         int deltaX = Math.abs(x - endX);
         int deltaY = Math.abs(y - endY);
+        // Manhatten Distance
         return deltaX + deltaY;
+        // Euclidean Distance
+        // return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
     public int getTimeStamp() {

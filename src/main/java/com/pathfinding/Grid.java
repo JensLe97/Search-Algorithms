@@ -32,6 +32,28 @@ public class Grid extends JPanel implements MouseListener, MouseMotionListener {
         this.repaint();
     }
 
+    /**
+     * Sets all expanded and fringe cells to empty
+     * Start, End and Walls remain at the same position
+     */
+    public void resetGridNodes(){
+        for (int x = 0; x < GuiConsts.CELLS_X; x++) {
+            for (int y = 0; y < GuiConsts.CELLS_Y; y++) {
+                if (gridNodes[x][y].getNodeType() != NodeType.OBSTACLE) {
+                    gridNodes[x][y] = new Node(NodeType.EMPTY, x, y);
+                }
+            }
+        }
+        if (startPosX != -1 && startPosY != -1) {
+            gridNodes[startPosX][startPosY] = new Node(NodeType.START, startPosX, startPosY);
+            gridNodes[startPosX][startPosY].setDistanceFromStart(0);
+        }
+        if (endPosX != -1 && endPosY != -1) {
+            gridNodes[endPosX][endPosY] = new Node(NodeType.END, endPosX, endPosY);
+        }
+        this.repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

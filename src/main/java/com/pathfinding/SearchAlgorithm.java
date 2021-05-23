@@ -2,8 +2,11 @@ package com.pathfinding;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -33,7 +36,7 @@ public class SearchAlgorithm {
         }
 
         // Open List = Fringe: New nodes that can be expanded
-        PriorityQueue<Node> openList;
+        Queue<Node> openList;
 
         switch (algorithm) {
             case AStar:
@@ -47,22 +50,36 @@ public class SearchAlgorithm {
                 );
                 break;
             case Dijkstra:
-                // Comparator that only sorts in the order of adding the nodes
+                // Comparator compares the F-Score: f(n) = g(n)
+                // Here, Dijkstra is the same as BFS since all distances are 1
                 openList = new PriorityQueue<Node>((node1, node2) -> 
-                    node1.getTimeStamp() - node2.getTimeStamp()
+                    (node2.getDistanceFromStart() ==
+                     node1.getDistanceFromStart()) ?
+                     node1.getTimeStamp() - node2.getTimeStamp() :
+                     node1.getDistanceFromStart() -
+                     node2.getDistanceFromStart()
+                );
+                break;
+            case Greedy:
+                // Comparator compares the F-Score: f(n) = h(n)
+                openList = new PriorityQueue<Node>((node1, node2) -> 
+                    ((int) Math.floor(node2.getDistanceToEnd(endPosX, endPosY)) ==
+                     (int) Math.floor(node1.getDistanceToEnd(endPosX, endPosY))) ?
+                      node1.getTimeStamp() - node2.getTimeStamp() :
+                     (int) Math.floor(node1.getDistanceToEnd(endPosX, endPosY)) -
+                     (int) Math.floor(node2.getDistanceToEnd(endPosX, endPosY))
                 );
                 break;
             case BFS:
-                // TODO: New Algorithm implementation
-                openList = new PriorityQueue<Node>();
+                // FIFO Queue: nodes that are inserted first are removed first
+                // Insert at the END and remove from the beginning
+                openList = new ArrayDeque<Node>();
                 break;
             case DFS:
-                // TODO: New Algorithm implementation
-                openList = new PriorityQueue<Node>();
-                break;
-            case ID:
-                // TODO: New Algorithm implementation
-                openList = new PriorityQueue<Node>();
+                // LIFO Queue: nodes that are inserted first are removed last
+                // Insert at the BEGINNING and remove from the beginning
+                // Use LinkedList for only adding/removing from one side
+                openList = new LinkedList<Node>();
                 break;
             default:
                 openList = new PriorityQueue<Node>();
@@ -101,14 +118,20 @@ public class SearchAlgorithm {
                 // Increase the G-Score by 1
                 int distanceFromStart = openList.peek().getDistanceFromStart() + 1;
                 // Closed List: Already expanded nodes
-                ArrayList<Node> closedList = expandNeighboringNodes(openList.peek(), distanceFromStart);
+                ArrayList<Node> closedList = expandNeighboringNodes(openList.peek(), distanceFromStart, algorithm);
                 openList.remove();
                 if (!closedList.isEmpty()) {
                     for (Node node : closedList) {
                             // Change TimeStamp for identifying each node
                             timeStamp++;
                             node.setTimeStamp(timeStamp);
-                            openList.add(node);
+                            if (algorithm == Algorithm.DFS) {
+                                // Insert at the beginning
+                                ((LinkedList<Node>) openList).addFirst(node);
+                            } else {
+                                // Insert at the end
+                                openList.add(node);
+                            }
                     }
                     gridCanvas.revalidate();
                     gridCanvas.repaint(); 
@@ -118,7 +141,7 @@ public class SearchAlgorithm {
         timer.start();
     }
 
-    private ArrayList<Node> expandNeighboringNodes(Node currentNode, int distanceFromStart) {
+    private ArrayList<Node> expandNeighboringNodes(Node currentNode, int distanceFromStart, Algorithm algorithm) {
         ArrayList<Node> expandedNeighboringNodes = new ArrayList<Node>();
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
@@ -135,7 +158,9 @@ public class SearchAlgorithm {
                     int neighDistToStart = neighboringNode.getDistanceFromStart();
 
                     // Check if the neighbor has not been expanded before and that it is not an obstacle
-                    if ((neighDistToStart == -1 || neighDistToStart > distanceFromStart) && neighboringNode.getNodeType() != NodeType.OBSTACLE){
+                    if (((algorithm == Algorithm.DFS && neighDistToStart == -1) 
+                      || (algorithm != Algorithm.DFS && neighDistToStart > distanceFromStart) || neighDistToStart == -1)
+                      && neighboringNode.getNodeType() != NodeType.OBSTACLE) {
                         expandNode(neighboringNode, currentNode.getX(), currentNode.getY(), distanceFromStart);
                         expandedNeighboringNodes.add(neighboringNode);
                     }
